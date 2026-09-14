@@ -1,0 +1,21 @@
+name = "loop-miniapp"
+main = "worker/index.ts"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+# The built Vue app is served straight from the Worker, so there is exactly one
+# deploy, one origin, and therefore no CORS to get wrong.
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+# From `wrangler d1 create loop-db`. A D1 database id is an identifier, not a
+# secret — it is useless without credentials for the account that owns it.
+[[d1_databases]]
+binding = "DB"
+database_name = "loop-db"
+database_id = "f08b9a34-9eaf-4e41-a7b0-e5937e3c1786"
+
+[observability]
+enabled = true
